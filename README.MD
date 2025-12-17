@@ -27,6 +27,7 @@ A arquitetura do laboratório é composta pelos seguintes recursos:
 
 A comunicação entre a aplicação e o banco de dados ocorre de forma privada e segura dentro da VPC.
 
+---
 
 ## 1️⃣ Criação do Grupo de Segurança
 
@@ -45,8 +46,7 @@ Foi criado um **Security Group** para permitir que o servidor web acesse o banco
 
 Essa regra permite conexões ao banco de dados apenas a partir das instâncias EC2 associadas ao grupo de segurança da aplicação web.
 
-![Criação do Grupo de Segurança](images/1.png)
-
+![Criação do Grupo de Segurança](images/1.PNG)
 
 ---
 
@@ -75,49 +75,79 @@ Esse grupo de sub-redes foi utilizado na criação da instância RDS na etapa se
 
 ## 3️⃣ Mecanismo do Banco de Dados
 
-
 A instância de banco de dados foi criada utilizando o **Amazon RDS** com o mecanismo **MySQL**, configurado para um ambiente de **desenvolvimento e testes (Dev/Test)**.
 
-A opção de **implantação Multi-AZ** foi selecionada para garantir maior disponibilidade e durabilidade dos dados. Nessa configuração, o Amazon RDS cria automaticamente uma instância primária e mantém uma réplica síncrona em outra Zona de Disponibilidade, permitindo maior tolerância a falhas e continuidade do serviço em caso de indisponibilidade.
+A opção de **implantação Multi-AZ** foi selecionada para garantir maior disponibilidade e durabilidade dos dados. Nessa configuração, o Amazon RDS cria automaticamente uma instância primária e mantém uma réplica síncrona em outra Zona de Disponibilidade.
 
-
-![Criação do Grupo de Sub-redes do RDS](images/3.PNG)
-![Disponibilidade](images/3.1.PNG)
+![Mecanismo do banco de dados](images/3.PNG)  
+![Disponibilidade Multi-AZ](images/3.1.PNG)
 
 ---
 
 ## 4️⃣ Configurações da Instância de Banco de Dados
 
-Em **Configurações**, defina os seguintes valores:
+Em **Configurações**, foram definidos os seguintes valores:
 
 - **Identificador da instância de banco de dados:** `lab-db`
 - **Nome do usuário principal:** `main`
 - **Senha principal:** `*****`
 - **Confirmar senha:** `*****`
 
-
-
 ![Configurações da instância de banco de dados](images/3.2.PNG)
-
 
 ---
 
-## 🧩 Classe da Instância, Armazenamento e Conectividade
+## 5️⃣ Classe da Instância e Armazenamento
 
 ### Classe da Instância de Banco de Dados
-Para a instância de banco de dados, foi utilizada uma classe com capacidade de intermitência, adequada para ambientes de laboratório e testes. A classe selecionada foi:
 
+Foi utilizada uma classe com capacidade de intermitência, adequada para ambientes de laboratório:
 
-- **db.t3.micro**
+- **Classe da instância:** `db.t3.micro`
 
-![Classe da instância, ](images/3.3..PNG)
+![Classe da instância](images/3.3..PNG)
 
 ### Armazenamento
-Em relação ao armazenamento da instância, foram definidas as seguintes configurações:
+
+As seguintes configurações de armazenamento foram aplicadas:
 
 - **Tipo de armazenamento:** Uso geral (SSD)
 - **Armazenamento alocado:** 20 GB
 
-![Classe de armazenamento](images/3.4.PNG)
+![Configuração de armazenamento](images/3.4.PNG)
 
+---
 
+## 6️⃣ Conectividade
+
+A conectividade da instância RDS foi configurada dentro da **VPC Lab VPC**, garantindo comunicação privada entre os recursos.
+
+### Configurações Aplicadas
+
+- **VPC:** Lab VPC  
+- **Grupo de segurança:** DB Security Group  
+- **Ação:** Grupo de segurança padrão removido  
+
+Essa configuração garante que o acesso ao banco de dados seja restrito apenas aos recursos autorizados.
+
+![Conectividade](images/3.5.PNG)
+
+---
+
+## 7️⃣ Monitoramento e Configurações Adicionais
+
+Para agilizar a implantação da instância RDS no laboratório, algumas opções foram ajustadas.
+
+### Monitoramento
+
+- **Monitoramento avançado:** desativado  
+
+### Configurações Adicionais
+
+- **Nome do banco de dados inicial:** `lab`  
+- **Backups automáticos:** desativados  
+- **Criptografia:** desativada  
+
+Essas configurações foram utilizadas apenas para fins de laboratório e não são recomendadas para ambientes de produção.
+
+![Configurações adicionais](images/3.6.PNG)
