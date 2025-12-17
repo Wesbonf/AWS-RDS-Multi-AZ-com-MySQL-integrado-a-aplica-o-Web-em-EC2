@@ -64,9 +64,24 @@ Foi criado um **DB Subnet Group** para definir em quais sub-redes o Amazon RDS p
 
 - **Zonas de Disponibilidade:** us-east-1a e us-east-1b  
 - **CIDR das Sub-redes:**  
-  - 10.0.1.0/24  
-  - 10.0.3.0/24  
+  - **10.0.1.0/24**  
+  - **10.0.3.0/24**  
 
 Esse grupo de sub-redes foi utilizado na criação da instância RDS na etapa seguinte.
 
 ![Criação do Grupo de Sub-redes do RDS](images/2.PNG)
+
+---
+
+## 🔧 Mecanismo do Banco de Dados
+
+## 🔧 Mecanismo do Banco de Dados
+
+A instância de banco de dados foi criada utilizando o **Amazon RDS** com o mecanismo **MySQL**, configurado para um ambiente de **desenvolvimento e testes (Dev/Test)**.
+
+A opção de **implantação Multi-AZ** foi selecionada para garantir maior disponibilidade e durabilidade dos dados. Nessa configuração, o Amazon RDS cria automaticamente uma instância primária e mantém uma réplica síncrona em outra Zona de Disponibilidade, permitindo maior tolerância a falhas e continuidade do serviço em caso de indisponibilidade.
+
+
+![Criação do Grupo de Sub-redes do RDS](images/3.PNG)
+
+---
