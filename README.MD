@@ -1,9 +1,7 @@
 # Laboratório AWS RDS Multi-AZ com MySQL e Aplicação Web
 
 ## 📌 Visão Geral
-Este repositório contém a documentação e o contexto prático de um laboratório voltado ao uso do **Amazon Relational Database Service (RDS)** para a criação e integração de um banco de dados relacional gerenciado na AWS. O objetivo principal foi demonstrar como provisionar uma instância de banco de dados altamente disponível e conectá-la a uma aplicação web hospedada em uma instância **EC2**, seguindo boas práticas de segurança e arquitetura em nuvem.
-
-O laboratório utiliza o mecanismo **MySQL** em uma implantação **Multi-AZ**, garantindo redundância, tolerância a falhas e maior confiabilidade para aplicações que dependem de persistência de dados.
+Documentação de um laboratório que demonstra o uso do Amazon RDS (MySQL) em implantação Multi-AZ, com foco em alta disponibilidade, segurança e boas práticas na AWS. O banco de dados é integrado a uma aplicação web hospedada em uma instância EC2, garantindo redundância e tolerância a falhas.
 
 ---
 
@@ -28,3 +26,47 @@ A arquitetura do laboratório é composta pelos seguintes recursos:
 - **Instância EC2** executando uma aplicação web de catálogo de endereços  
 
 A comunicação entre a aplicação e o banco de dados ocorre de forma privada e segura dentro da VPC.
+
+
+## 1️⃣ Criação do Grupo de Segurança
+
+Foi criado um **Security Group** para permitir que o servidor web acesse o banco de dados RDS de forma segura.
+
+### Configurações
+
+- **Nome:** DB Security Group  
+- **Descrição:** Permit access from Web Security Group  
+- **VPC:** Lab VPC  
+
+### Regra de Entrada
+
+- **Tipo:** MySQL/Aurora (3306)  
+- **Origem:** Web Security Group  
+
+Essa regra permite conexões ao banco de dados apenas a partir das instâncias EC2 associadas ao grupo de segurança da aplicação web.
+
+![Criação do Grupo de Segurança](images/1.png)
+
+
+---
+
+## 2️⃣ Criação do Grupo de Sub-redes do Banco de Dados
+
+Foi criado um **DB Subnet Group** para definir em quais sub-redes o Amazon RDS pode ser provisionado, garantindo disponibilidade em múltiplas Zonas de Disponibilidade.
+
+### Configurações
+
+- **Nome:** DB-Subnet-Group  
+- **Descrição:** DB Subnet Group  
+- **VPC:** Lab VPC  
+
+### Sub-redes Selecionadas
+
+- **Zonas de Disponibilidade:** us-east-1a e us-east-1b  
+- **CIDR das Sub-redes:**  
+  - 10.0.1.0/24  
+  - 10.0.3.0/24  
+
+Esse grupo de sub-redes foi utilizado na criação da instância RDS na etapa seguinte.
+
+![Criação do Grupo de Sub-redes do RDS](images/2.PNG)
