@@ -73,9 +73,8 @@ Esse grupo de sub-redes foi utilizado na criação da instância RDS na etapa se
 
 ---
 
-## 🔧 Mecanismo do Banco de Dados
+## 3️⃣ Mecanismo do Banco de Dados
 
-## 🔧 Mecanismo do Banco de Dados
 
 A instância de banco de dados foi criada utilizando o **Amazon RDS** com o mecanismo **MySQL**, configurado para um ambiente de **desenvolvimento e testes (Dev/Test)**.
 
@@ -83,5 +82,42 @@ A opção de **implantação Multi-AZ** foi selecionada para garantir maior disp
 
 
 ![Criação do Grupo de Sub-redes do RDS](images/3.PNG)
+![Disponibilidade](images/3.1.PNG)
 
 ---
+
+## 4️⃣ Configurações da Instância de Banco de Dados
+
+Em **Configurações**, defina os seguintes valores:
+
+- **Identificador da instância de banco de dados:** `lab-db`
+- **Nome do usuário principal:** `main`
+- **Senha principal:** `*****`
+- **Confirmar senha:** `*****`
+
+
+
+![Configurações da instância de banco de dados](images/3.2.PNG)
+
+
+---
+
+## 🧩 Classe da Instância, Armazenamento e Conectividade
+
+### Classe da Instância de Banco de Dados
+Para a instância de banco de dados, foi utilizada uma classe com capacidade de intermitência, adequada para ambientes de laboratório e testes. A classe selecionada foi:
+
+
+- **db.t3.micro**
+
+![Classe da instância, ](images/3.3..PNG)
+
+### Armazenamento
+Em relação ao armazenamento da instância, foram definidas as seguintes configurações:
+
+- **Tipo de armazenamento:** Uso geral (SSD)
+- **Armazenamento alocado:** 20 GB
+
+![Classe de armazenamento](images/3.4.PNG)
+
+
